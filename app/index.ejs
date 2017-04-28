@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="never">
+    <meta name="Trevor" content="Trevor,xizhouh@gmail.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
+    <title>知乎日报</title>
+    <% if (htmlWebpackPlugin.options.appModules) { %>
+      <!-- Add `app/node_modules` to global paths so `require` works properly in development -->
+      <script>
+        require('module').globalPaths.push('<%= htmlWebpackPlugin.options.appModules.replace(/\\/g, '\\\\') %>')
+      </script>
+    <% } %>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- webpack builds are automatically injected -->
+  </body>
+</html>
