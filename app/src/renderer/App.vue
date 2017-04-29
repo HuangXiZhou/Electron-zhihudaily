@@ -17,4 +17,5 @@
 </script>
 
 <style lang="less">
+  ::-webkit-scrollbar{width: 0}
 </style>
