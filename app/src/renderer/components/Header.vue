@@ -3,28 +3,10 @@
     <mu-appbar class="app-bar" :title="'知乎日报 | ' + title">
       <mu-icon-button v-if="icon == 'menu'" :icon="icon" slot="left" @click="toggle(true)"/>      
       <mu-icon-button v-else :icon="icon" slot="left" @click="back()"/>
+      <mu-flat-button class="link-span" label="每日推荐" href="#/" slot="right"/>
+      <mu-flat-button class="link-span" label="主题日报" href="#/themes" slot="right"/>
+      <mu-flat-button class="link-span" label="过往精选" href="#/beforeArticals" slot="right"/>
     </mu-appbar>
-    <mu-drawer :open="open" :docked="docked" @close="toggle()">
-      <mu-list @itemClick="docked ? '' : toggle()">
-        <mu-list-item/>     
-        <mu-list-item class="link-wrap">
-          <router-link class="link-item" to="/">
-            每日推荐
-          </router-link>
-        </mu-list-item>
-        <mu-list-item class="link-wrap">
-          <router-link class="link-item" to="/themes">
-            主题日报
-          </router-link>          
-        </mu-list-item>
-        <mu-list-item class="link-wrap">
-          <router-link class="link-item" to="/beforeArticals">
-            过往精选
-          </router-link> 
-        </mu-list-item>          
-        <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
-      </mu-list>
-    </mu-drawer>
   </div>
 </template>
 
@@ -34,27 +16,20 @@ export default {
   name: "Header",
   data () {
     return {
-      open: false,
-      docked: true
     };
   },
   methods: {
-    toggle (flag) {
-      this.open = !this.open
-      this.docked = !flag
-    },
     back () {
       this.$router.go(-1)
     }
   },
   props: {
     icon: {
-      type: String,
-      default: "menu"
+      type: String
     },
     title: {
       type: String,
-      default: "首页"
+      default: "每日推荐"
     }
   }
 }
@@ -76,5 +51,9 @@ export default {
       font-size: 16px;
       color: #444;
     }
+  }
+
+  .link-span {
+    text-decoration: none;
   }
 </style>

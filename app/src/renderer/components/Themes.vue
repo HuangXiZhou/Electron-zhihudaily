@@ -11,6 +11,7 @@
           <img :src="item.thumbnail" :alt="item.name">
       </div>
     </div>
+    <!-- 加载模块 -->
     <mu-circular-progress class="loading" v-else :size="60" :strokeWidth="5"/>    
   </div>
 </template>
@@ -23,7 +24,7 @@ export default {
   name: "Themes",
   data () {
     return {
-      headerTitle: '主题',
+      headerTitle: '主题日报',
       themeData: [],
       url
     };
@@ -102,6 +103,7 @@ export default {
       transform: scale(1.1);
     }
   }
+  
   .loading {
     position: fixed;
     top: 50%;

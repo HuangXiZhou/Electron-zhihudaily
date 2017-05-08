@@ -2,7 +2,7 @@
   <div class="home-container">
     <zhihu-header></zhihu-header>
     <div v-if="storiesData.date">
-      <!-- carousel -->
+      <!-- 轮播图 -->
       <el-carousel class="carousel" :interval="4000" type="card" height="200px">
         <el-carousel-item v-for="item in storiesData.top_stories" :key="item.id">
           <div class="carousel-img--wrapper">
@@ -17,9 +17,9 @@
           </div>
         </el-carousel-item>
       </el-carousel>
-      <!-- lastStories title -->
+      <!-- 最新文章列表标题 -->
       <h1 class="lastStory-title">最新文章</h1>  
-      <!-- lastStory list -->  
+      <!-- 最新文章列别 -->  
       <artical-list :stories-data="storiesData"></artical-list>
     </div>
     <div v-else class="loading-container">

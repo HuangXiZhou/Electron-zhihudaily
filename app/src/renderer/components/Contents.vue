@@ -1,10 +1,9 @@
 <template lang="html">
   <div>
-    <!-- header -->
+    <!-- 头部 -->
     <zhihu-header :icon="headerIcon" :title="headerTitle"></zhihu-header>
-    <!-- contents body -->
     <div v-if="comments.comments" class="contents-content">
-      <!-- 正文 -->
+      <!-- 文章正文 -->
       <div class="contents-body" v-html="contents.body">{{ contents.body }}</div>
       <!-- 用户评论模块 -->
       <div class="extra-info">
@@ -22,7 +21,7 @@
         </mu-card>
       </div>
     </div>
-    <!-- loading -->
+    <!-- 加载模块 -->
     <mu-circular-progress class="loading" v-else :size="60" :strokeWidth="5"/> 
   </div>
 </template>
@@ -60,6 +59,7 @@ export default {
           this.contents.body = this.contents.body.replace("<div class=\"headline-background\">", "<div class=\"headline-background\" style=\"display: none\">");        
           this.contents.body = this.contents.body.replace("<div class=\"img-place-holder\"><\/div>", "<div class=\"img-place-holder\"\"><img src=\"" + this.contents.image + "\" alt=\"" + this.contents.title + "\"><\/div>");        
           this.contents.body = this.contents.body.replace(">查看知乎讨论", "style=\"display: none\">查看知乎讨论");
+          this.contents.body = this.contents.body.replace(/href=\"(.*?)\"/gi, "");                                                                     
           let str = JSON.stringify(this.contents);
           sessionStorage.setItem(this.$route.path, str);
       }, response => {

@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <zhihu-header :icon="headerIcon" :title="headerTitle"></zhihu-header>
-    <!-- 主题文章列表 -->
+    <!-- 主题日报文章列表 -->
     <artical-list v-if="themeData.name" class="themeArticalList-wrap" :stories-data="themeData"></artical-list>
     <mu-circular-progress class="loading" v-else :size="60" :strokeWidth="5"/> 
   </div>
