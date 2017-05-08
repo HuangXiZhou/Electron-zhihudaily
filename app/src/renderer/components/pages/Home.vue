@@ -32,15 +32,18 @@
 
 
 <script>
-import zhihuHeader from './Header'
-import ArticalList from './ArticalList'
-import url from '../../assetes/url.json'
+import ajax from '../../../service/http.js'
+import zhihuHeader from '../ui/Header'
+import ArticalList from '../ui/ArticalList'
 export default {
   name: "Home",
   data () {
     return {
       storiesData: [],
-      url
+      ajax,
+      url: {
+        url: '/api/v1/last-stories'
+      }
     };
   },
   components: {
@@ -59,16 +62,15 @@ export default {
     if (dbData) {
        this.storiesData = JSON.parse(dbData);
     } else {
-      let URL = this.url[0].data + '/api/v1/last-stories';
-      this.$http.get(URL).then(response => {
-        // success callback
+      ajax.get(this.url)
+      .then(response => {
         sessionStorage.clear( );
         this.storiesData = response.data.STORIES;
         let str = JSON.stringify(this.storiesData);
         sessionStorage.setItem(this.storiesData.date, str);
-      }, response => {
-          // error callback
-          console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   }

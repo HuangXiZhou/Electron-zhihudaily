@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import zhihuHeader from './Header'
-import url from '../../assetes/url.json'
+import ajax from '../../../service/http.js'
+import zhihuHeader from '../ui/Header'
 export default {
   name: "Contents",
   data () {
@@ -37,7 +37,13 @@ export default {
       comments: [],
       headerIcon: 'close',
       headerTitle: '文章',
-      url,
+      contentUrl: {
+        url: '/api/v1' + this.$route.path
+      },
+      commentsUrl: {
+        url: '/api/v1' + this.$route.path + '/long-comments'
+      },
+      ajax,
       noComments: true
     };
   },
@@ -51,10 +57,8 @@ export default {
       this.comments = JSON.parse(sessionStorage.getItem(this.$route.path + '/long-comments'));
       this.comments.comments.length ? this.noComments = false : this.noComments = true;
     } else {
-      var storyUrl = this.url[0].data + '/api/v1' + this.$route.path;
-      var commentsUrl = this.url[0].data + '/api/v1' + this.$route.path + '/long-comments';
-      this.$http.get(storyUrl).then(response => {
-          // success callback
+      ajax.get(this.contentUrl)
+      .then(response => {
           this.contents = response.data.CONTENTS;
           this.contents.body = this.contents.body.replace("<div class=\"headline-background\">", "<div class=\"headline-background\" style=\"display: none\">");        
           this.contents.body = this.contents.body.replace("<div class=\"img-place-holder\"><\/div>", "<div class=\"img-place-holder\"\"><img src=\"" + this.contents.image + "\" alt=\"" + this.contents.title + "\"><\/div>");        
@@ -62,19 +66,19 @@ export default {
           this.contents.body = this.contents.body.replace(/href=\"(.*?)\"/gi, "");                                                                     
           let str = JSON.stringify(this.contents);
           sessionStorage.setItem(this.$route.path, str);
-      }, response => {
-          // error callback
-          console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
-      this.$http.get(commentsUrl).then(response => {
-          // success callback
+      ajax.get(this.commentsUrl)
+      .then(response => {
           this.comments = response.data.COMMENTS;
           this.comments.comments.length ? this.noComments = false : this.noComments = true;
           let str = JSON.stringify(this.comments);
           sessionStorage.setItem(this.$route.path + '/long-comments', str);
-      }, response => {
-          // error callback
-          console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   }

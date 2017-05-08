@@ -18,15 +18,18 @@
 
 
 <script>
-import zhihuHeader from './Header'
-import url from '../../assetes/url.json'
+import ajax from '../../../service/http.js'
+import zhihuHeader from '../ui/Header'
 export default {
   name: "Themes",
   data () {
     return {
       headerTitle: '主题日报',
       themeData: [],
-      url
+      url: {
+        url: '/api/v1/themes'
+      },
+      ajax
     };
   },
   components: {
@@ -37,15 +40,14 @@ export default {
     if(dbData) {
       this.themeData = JSON.parse(dbData);
     } else {
-      var URL = this.url[0].data + '/api/v1/themes';
-      this.$http.get(URL).then(response => {
-        // success callback
+      ajax.get(this.url)
+      .then(response => {
         this.themeData = response.data.THEMES;
         let str = JSON.stringify(this.themeData);
         localStorage.setItem('themesImg', str);
-      }, response => {
-          // error callback
-          console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   }

@@ -13,7 +13,7 @@
 
 
 <script>
-import logo from '../../assetes/img/logo.png'
+import logo from '../../../assetes/img/logo.png'
 export default {
   name: "ArticalList",
   data () {

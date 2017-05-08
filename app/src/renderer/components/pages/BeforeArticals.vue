@@ -18,21 +18,24 @@
 
 
 <script>
-import zhihuHeader from './Header'
-import ArticalList from './ArticalList'
-import url from '../../assetes/url.json'
+import ajax from '../../../service/http.js'
+import zhihuHeader from '../ui/Header'
+import ArticalList from '../ui/ArticalList'
 
 export default {
   name: "BeforeArticals",
   data () {
     return {
-      url,
+      url: {
+        url: ''
+      },
       headerTitle: '过往精选',
       beforeArticalsData: [],
       total: 500,
       current: 1,
       datePicker: '',
-      lastDate: ''
+      lastDate: '',
+      ajax
     };
   },
   components: {
@@ -46,15 +49,15 @@ export default {
       if(dbData) {
         this.beforeArticalsData = JSON.parse(dbData);
       } else {
-        var URL = this.url[0].data + '/api/v1/before-stories/' + date.replace(/[^0-9]/ig,"");
-        this.$http.get(URL).then(response => {
-          // success callback
+        this.url.url = '/api/v1/before-stories/' + date.replace(/[^0-9]/ig,"");
+        ajax.get(this.url)
+        .then(response => {
           this.beforeArticalsData = response.data.STORIES;
           let str = JSON.stringify(this.beforeArticalsData);
           sessionStorage.setItem(beforeArticalsKey, str);
-        }, response => {
-            // error callback
-            console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
         });
       }
     }
