@@ -11,9 +11,9 @@ import ElementUI from 'element-ui'
 
 import App from './App'
 import routes from './routes'
-import axios from 'axios'
+import VueLazyload from 'vue-lazyload'
 
-Vue.prototype.$http = axios
+Vue.use(VueLazyload)
 Vue.use(Electron)
 Vue.use(Router)
 Vue.use(MuseUI)

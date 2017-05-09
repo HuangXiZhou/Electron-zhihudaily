@@ -4,7 +4,7 @@
       <router-link :to="'/contents/' + item.id">
         <span v-if="item.title.length < 33"> {{ item.title }} </span>  
         <span v-else> {{ item.title.substring(0, 32) }}... </span>
-        <img v-if="item.images" :src="item.images" :alt="item.title">
+        <img v-if="item.images" v-lazy="item.images[0]" :alt="item.title">
         <img v-else :src="logo" alt="无配图">        
       </router-link>
     </div>

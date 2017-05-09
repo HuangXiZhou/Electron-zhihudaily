@@ -85,7 +85,7 @@ export default {
   }
 
   .date-picker {
-    margin-left: 175px;
+    margin-left: 185px;
     text-align: center;
   }
 

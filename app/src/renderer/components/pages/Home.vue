@@ -8,11 +8,11 @@
           <div class="carousel-img--wrapper">
             <div class="carousel-text">
               <p>
-                &nbsp;&nbsp;&nbsp;{{ item.title }}   
+                {{ item.title }}   
               </p>
             </div>
             <router-link :to="'/contents/' + item.id">
-              <img class="carousel-img" :src="item.image" :alt="item.title">
+              <img class="carousel-img" v-lazy="item.image" :alt="item.title">
             </router-link>
           </div>
         </el-carousel-item>
@@ -64,7 +64,7 @@ export default {
     } else {
       ajax.get(this.url)
       .then(response => {
-        sessionStorage.clear( );
+        sessionStorage.clear();
         this.storiesData = response.data.STORIES;
         let str = JSON.stringify(this.storiesData);
         sessionStorage.setItem(this.storiesData.date, str);

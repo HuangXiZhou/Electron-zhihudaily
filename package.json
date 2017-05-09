@@ -54,6 +54,7 @@
     "element-ui": "^1.2.8",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
-    "muse-ui": "^2.0.2"
+    "muse-ui": "^2.0.2",
+    "vue-lazyload": "^1.0.3"
   }
 }
