@@ -2,10 +2,10 @@
   <div class="articalList-wrap">
     <div class="articalList-item" v-for="item in storiesData.stories" :key="item.id">
       <router-link :to="'/contents/' + item.id">
-        <span v-if="item.title.length < 33"> {{ item.title }} </span>  
+        <span v-if="item.title.length < 33"> {{ item.title }} </span>
         <span v-else> {{ item.title.substring(0, 32) }}... </span>
         <img v-if="item.images" v-lazy="item.images[0]" :alt="item.title">
-        <img v-else :src="logo" alt="无配图">        
+        <img v-else :src="logo" alt="无配图">
       </router-link>
     </div>
   </div>
@@ -41,7 +41,7 @@ export default {
     margin-top: 20px;
     width: 100%;
     height: 120px;
-    border-radius: 3px;    
+    border-radius: 3px;
     box-shadow: 3px 3px 9px #ccc;
     background-color: #fff;
     transition: all .12s ease-in-out;

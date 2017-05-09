@@ -12,15 +12,14 @@
     <div v-if="!datePicker" class="loading loading-text">
       <h1>暂未选择日期</h1>
     </div>
-    <mu-circular-progress v-if="datePicker && !beforeArticalsData.date" class="loading" :size="60" :strokeWidth="5" color="#ff4081"/> 
   </div>
 </template>
 
 
 <script>
 import ajax from '../../../service/http.js'
-import zhihuHeader from '../ui/Header'
-import ArticalList from '../ui/ArticalList'
+import zhihuHeader from 'components/ui/Header'
+import ArticalList from 'components/ui/ArticalList'
 
 export default {
   name: "BeforeArticals",
@@ -65,10 +64,10 @@ export default {
   mounted () {
     let currentDate = new Date();
     let currentYear = currentDate.getFullYear();
-    let currentMonth = currentDate.getMonth() + 1;  
+    let currentMonth = currentDate.getMonth() + 1;
     let currentDay = currentDate.getDate();
-    currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;        
-    currentDay = currentDay < 10 ? '0' + currentDay : currentDay;    
+    currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;
+    currentDay = currentDay < 10 ? '0' + currentDay : currentDay;
     this.lastDate = currentYear.toString() + '-' + currentMonth.toString() + '-' + currentDay.toString();
   }
 }

@@ -22,13 +22,14 @@
       </div>
     </div>
     <!-- 加载模块 -->
-    <mu-circular-progress class="loading" v-else :size="60" :strokeWidth="5"/> 
+    <loading v-else :loading-style="loadingStyle"></loading>
   </div>
 </template>
 
 <script>
+import Loading from 'components/ui/Loading'
 import ajax from '../../../service/http.js'
-import zhihuHeader from '../ui/Header'
+import zhihuHeader from 'components/ui/Header'
 export default {
   name: "Contents",
   data () {
@@ -44,11 +45,13 @@ export default {
         url: '/api/v1' + this.$route.path + '/long-comments'
       },
       ajax,
-      noComments: true
+      noComments: true,
+      loadingStyle: 'white-purple'
     };
   },
   components: {
-    zhihuHeader
+    zhihuHeader,
+    Loading
   },
   mounted () {
     let dbData = sessionStorage.getItem(this.$route.path);
@@ -60,10 +63,10 @@ export default {
       ajax.get(this.contentUrl)
       .then(response => {
           this.contents = response.data.CONTENTS;
-          this.contents.body = this.contents.body.replace("<div class=\"headline-background\">", "<div class=\"headline-background\" style=\"display: none\">");        
-          this.contents.body = this.contents.body.replace("<div class=\"img-place-holder\"><\/div>", "<div class=\"img-place-holder\"\"><img src=\"" + this.contents.image + "\" alt=\"" + this.contents.title + "\"><\/div>");        
+          this.contents.body = this.contents.body.replace("<div class=\"headline-background\">", "<div class=\"headline-background\" style=\"display: none\">");
+          this.contents.body = this.contents.body.replace("<div class=\"img-place-holder\"><\/div>", "<div class=\"img-place-holder\"\"><img src=\"" + this.contents.image + "\" alt=\"" + this.contents.title + "\"><\/div>");
           this.contents.body = this.contents.body.replace(">查看知乎讨论", "style=\"display: none\">查看知乎讨论");
-          this.contents.body = this.contents.body.replace(/href=\"(.*?)\"/gi, "");                                                                     
+          this.contents.body = this.contents.body.replace(/href=\"(.*?)\"/gi, "");
           let str = JSON.stringify(this.contents);
           sessionStorage.setItem(this.$route.path, str);
       })
@@ -116,7 +119,7 @@ export default {
     .empty-comments {
       margin-top: 40px;
       margin-bottom: 40px;
-      text-align: center;      
+      text-align: center;
       & > span {
         font-size: 20px;
         color: #777;

@@ -4,7 +4,7 @@
       <div class="carousel-img--wrapper">
         <div class="carousel-text">
           <p>
-            {{ item.title }}   
+            {{ item.title }}
           </p>
         </div>
         <router-link :to="'/contents/' + item.id">
@@ -63,8 +63,8 @@ export default {
       padding-top: -10px;
       padding-bottom: 10px;
       padding-left: 10px;
-      padding-right: 10px;  
-      text-decoration: none;    
+      padding-right: 10px;
+      text-decoration: none;
       font-size: 16px;
       color: #fff;
       word-break: break-all;

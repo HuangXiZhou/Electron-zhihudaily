@@ -6,20 +6,21 @@
         <div class="img-hover">
           <router-link :to="'/themes/' + item.id">
             <span>{{ item.name }}</span>
-          </router-link>            
+          </router-link>
         </div>
           <img :src="item.thumbnail" :alt="item.name">
       </div>
     </div>
-    <!-- 加载模块 -->
-    <mu-circular-progress class="loading" v-else :size="60" :strokeWidth="5"/>    
+    <!-- 加载动画 -->
+    <loading :loading-style="loadingStyle"></loading>
   </div>
 </template>
 
 
 <script>
+import Loading from 'components/ui/Loading'
 import ajax from '../../../service/http.js'
-import zhihuHeader from '../ui/Header'
+import zhihuHeader from 'components/ui/Header'
 export default {
   name: "Themes",
   data () {
@@ -29,11 +30,13 @@ export default {
       url: {
         url: '/api/v1/themes'
       },
-      ajax
+      ajax,
+      loadingStyle: 'white-purple'
     };
   },
   components: {
-    zhihuHeader
+    zhihuHeader,
+    Loading
   },
   mounted () {
     let dbData = localStorage.getItem('themesImg');
@@ -105,7 +108,7 @@ export default {
       transform: scale(1.1);
     }
   }
-  
+
   .loading {
     position: fixed;
     top: 50%;

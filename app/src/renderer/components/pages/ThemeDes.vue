@@ -3,15 +3,17 @@
     <zhihu-header :icon="headerIcon" :title="headerTitle"></zhihu-header>
     <!-- 主题日报文章列表 -->
     <artical-list v-if="themeData.name" class="themeArticalList-wrap" :stories-data="themeData"></artical-list>
-    <mu-circular-progress class="loading" v-else :size="60" :strokeWidth="5"/> 
+    <!-- 加载动画 -->
+    <loading loading-style="loadingStyle"></loading>
   </div>
 </template>
 
 
 <script>
 import ajax from '../../../service/http.js'
-import zhihuHeader from '../ui/Header'
-import ArticalList from '../ui/ArticalList'
+import zhihuHeader from 'components/ui/Header'
+import ArticalList from 'components/ui/ArticalList'
+import Loading from 'components/ui/Loading'
 export default {
   name: "ThemeDes",
   data () {
@@ -22,12 +24,14 @@ export default {
       url: {
         url: '/api/v1' + this.$route.path
       },
-      ajax
+      ajax,
+      loadingStyle: 'white-purple'
     };
   },
   components: {
     zhihuHeader,
-    ArticalList
+    ArticalList,
+    Loading
   },
   mounted () {
     let dbData = sessionStorage.getItem(this.$route.path);

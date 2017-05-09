@@ -1,8 +1,7 @@
 <template lang="html">
   <div>
     <mu-appbar class="app-bar" :title="'知乎日报 | ' + title">
-      <mu-icon-button v-if="icon == 'menu'" :icon="icon" slot="left" @click="toggle(true)"/>      
-      <mu-icon-button v-else :icon="icon" slot="left" @click="back()"/>
+      <mu-icon-button :style=" icon === 'close' ? 'visibility: visible' : 'visibility: hidden' " :icon="icon" slot="left" @click="back()"/>
       <mu-flat-button class="link-span" label="每日推荐" href="#/" slot="right"/>
       <mu-flat-button class="link-span" label="主题日报" href="#/themes" slot="right"/>
       <mu-flat-button class="link-span" label="过往精选" href="#/beforeArticals" slot="right"/>

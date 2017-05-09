@@ -1,26 +1,27 @@
 <template lang="html">
   <div class="home-container">
-    <zhihu-header></zhihu-header>
     <div v-if="storiesData.date">
+      <!-- 头部 -->
+      <zhihu-header></zhihu-header>      
       <!-- 轮播图 -->
       <zhihu-carousel :carousel-data="storiesData.top_stories"></zhihu-carousel>
       <!-- 最新文章列表标题 -->
-      <h1 class="lastStory-title">最新文章</h1>  
-      <!-- 最新文章列表 -->  
+      <h1 class="lastStory-title">最新文章</h1>
+      <!-- 最新文章列表 -->
       <artical-list :stories-data="storiesData"></artical-list>
     </div>
-    <!-- 加载视图 -->
-    <home-loading v-else></home-loading>
+    <!-- 加载动画 -->
+    <loading v-else></loading>
   </div>
 </template>
 
 
 <script>
 import ajax from '../../../service/http.js'
-import ZhihuCarousel from '../ui/Carousel'
-import ZhihuHeader from '../ui/Header'
-import ArticalList from '../ui/ArticalList'
-import HomeLoading from '../ui/HomeLoading'
+import ZhihuCarousel from 'components/ui/Carousel'
+import ZhihuHeader from 'components/ui/Header'
+import ArticalList from 'components/ui/ArticalList'
+import Loading from 'components/ui/Loading'
 export default {
   name: "Home",
   data () {
@@ -36,15 +37,15 @@ export default {
     ZhihuHeader,
     ArticalList,
     ZhihuCarousel,
-    HomeLoading
+    Loading
   },
   mounted () {
     let currentDate = new Date();
     let currentYear = currentDate.getFullYear();
-    let currentMonth = currentDate.getMonth() + 1;  
+    let currentMonth = currentDate.getMonth() + 1;
     let currentDay = currentDate.getDate();
-    currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;        
-    currentDay = currentDay < 10 ? '0' + currentDay : currentDay;    
+    currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;
+    currentDay = currentDay < 10 ? '0' + currentDay : currentDay;
     let lastDate = currentYear.toString() + currentMonth.toString() + currentDay.toString();
     let dbData = sessionStorage.getItem(lastDate);
     if (dbData) {
@@ -69,7 +70,7 @@ export default {
 <style lang="less" scoped>
   @font-color: rgb(53,53,53);
   .home-container {
-    margin: 0 30px;
+    margin: 0;
   }
 
   .lastStory-title {
@@ -79,23 +80,4 @@ export default {
     font-weight: 400;
     color: @font-color;
   }
-
-  // .loading-container {
-  //   position: fixed;
-  //   top: 50%;
-  //   left: 50%;
-  //   transform: translate(-50%, -50%);
-  //   text-align: center;
-  //   color: #7e57c2;
-  //   & > h1 {
-  //     font-size: 40px;
-  //   }
-  //   & > h2 {
-  //     text-align: right;
-  //     color: #212121;
-  //   }
-  //   .loading {
-  //     margin-top: 80px; 
-  //   }
-  // }
 </style>
