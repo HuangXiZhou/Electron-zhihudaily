@@ -3,38 +3,24 @@
     <zhihu-header></zhihu-header>
     <div v-if="storiesData.date">
       <!-- 轮播图 -->
-      <el-carousel class="carousel" :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in storiesData.top_stories" :key="item.id">
-          <div class="carousel-img--wrapper">
-            <div class="carousel-text">
-              <p>
-                {{ item.title }}   
-              </p>
-            </div>
-            <router-link :to="'/contents/' + item.id">
-              <img class="carousel-img" v-lazy="item.image" :alt="item.title">
-            </router-link>
-          </div>
-        </el-carousel-item>
-      </el-carousel>
+      <zhihu-carousel :carousel-data="storiesData.top_stories"></zhihu-carousel>
       <!-- 最新文章列表标题 -->
       <h1 class="lastStory-title">最新文章</h1>  
-      <!-- 最新文章列别 -->  
+      <!-- 最新文章列表 -->  
       <artical-list :stories-data="storiesData"></artical-list>
     </div>
-    <div v-else class="loading-container">
-      <h1>欢迎使用知乎日报</h1>
-      <h2>Designed by Trevor</h2>
-      <mu-circular-progress class="loading" :size="60" :strokeWidth="5" color="#ff4081"/>   
-    </div> 
+    <!-- 加载视图 -->
+    <home-loading v-else></home-loading>
   </div>
 </template>
 
 
 <script>
 import ajax from '../../../service/http.js'
-import zhihuHeader from '../ui/Header'
+import ZhihuCarousel from '../ui/Carousel'
+import ZhihuHeader from '../ui/Header'
 import ArticalList from '../ui/ArticalList'
+import HomeLoading from '../ui/HomeLoading'
 export default {
   name: "Home",
   data () {
@@ -47,8 +33,10 @@ export default {
     };
   },
   components: {
-    zhihuHeader,
-    ArticalList
+    ZhihuHeader,
+    ArticalList,
+    ZhihuCarousel,
+    HomeLoading
   },
   mounted () {
     let currentDate = new Date();
@@ -83,17 +71,6 @@ export default {
   .home-container {
     margin: 0 30px;
   }
-  .carousel {
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: 720px;
-  }
-
-  .carousel-img {
-    height: 300px;
-  }
 
   .lastStory-title {
     margin-top: 40px;
@@ -103,48 +80,22 @@ export default {
     color: @font-color;
   }
 
-  .loading-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #7e57c2;
-    & > h1 {
-      font-size: 40px;
-    }
-    & > h2 {
-      text-align: right;
-      color: #212121;
-    }
-    .loading {
-      margin-top: 80px; 
-    }
-  }
-
-  .carousel-img--wrapper {
-    position: relative;
-  }
-
-  .carousel-text {
-    position: absolute;
-    bottom: 100px;
-    left: 30px;
-    width: 300px;
-    height: 80px;
-    text-align: left;
-    background: #555;
-    opacity: .7;
-    overflow: hidden;
-    & > p {
-      padding-top: -10px;
-      padding-bottom: 10px;
-      padding-left: 10px;
-      padding-right: 10px;  
-      text-decoration: none;    
-      font-size: 16px;
-      color: #fff;
-      word-break: break-all;
-    }
-  }
+  // .loading-container {
+  //   position: fixed;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   text-align: center;
+  //   color: #7e57c2;
+  //   & > h1 {
+  //     font-size: 40px;
+  //   }
+  //   & > h2 {
+  //     text-align: right;
+  //     color: #212121;
+  //   }
+  //   .loading {
+  //     margin-top: 80px; 
+  //   }
+  // }
 </style>
